@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 
 import './App.css';
 import DataProvider from './context/DataContext/Provider';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/services" element={<Dashboard />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </DataProvider>
     </BrowserRouter>
