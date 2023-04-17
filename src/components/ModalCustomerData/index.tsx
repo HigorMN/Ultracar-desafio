@@ -4,7 +4,7 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 import { IModalOpen } from '../../Interface/IModalOpen';
 import DataContext from '../../context/DataContext';
 import IDataContext from '../../Interface/IDataContext';
-import IDataService from '../../Interface/iDataService';
+import IDataService from '../../Interface/IDataService';
 import dataPart from '../../mock/dataPart';
 import { useNavigate } from 'react-router-dom';
 import getLocal, { setLocal } from '../../utils/localStoragFunc';
@@ -20,10 +20,16 @@ export default function ModalCustomerData(event: IModalOpen) {
   const onFinish = (obj: IDataService) => {
     const startDateTime = new Date();
     const endDateTime = null;
-    const dataService = getLocal('dataService');
+    const dataService: IDataService[] = getLocal('dataService');
 
     setLocal('dataService', [
-      { ...obj, startDateTime, endDateTime, dataCustomer },
+      {
+        key: dataService.length,
+        ...obj,
+        startDateTime,
+        endDateTime,
+        dataCustomer,
+      },
       ...dataService,
     ]);
     openMessage('success', 'Serviço cadastrado');

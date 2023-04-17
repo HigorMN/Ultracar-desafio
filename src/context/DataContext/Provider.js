@@ -1,14 +1,19 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { message } from 'antd';
-import { setLocal } from '../../utils/localStoragFunc';
+import getLocal, { setLocal } from '../../utils/localStoragFunc';
 import DataContext from '.';
 
 function Provider({ children }) {
   const [dataCustomer, setDataCustomer] = useState({});
   const [messageApi, contextHolder] = message.useMessage();
+  const [saveDataService, setSaveDataService] = useState([]);
 
   useEffect(() => {
-    setLocal('dataService', [])
+    const dataService = getLocal('dataService');
+
+    if(!dataService) {
+      setLocal('dataService', [])
+    }
   }, [])
 
   const openMessage = useCallback(
@@ -26,8 +31,10 @@ function Provider({ children }) {
       dataCustomer,
       setDataCustomer,
       openMessage,
+      saveDataService,
+      setSaveDataService,
     }),
-    [dataCustomer, openMessage]
+    [dataCustomer, openMessage, saveDataService]
   );
 
   return (
