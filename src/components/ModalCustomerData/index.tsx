@@ -18,7 +18,13 @@ export default function ModalCustomerData(event: IModalOpen) {
   const navigate = useNavigate();
 
   const onFinish = (obj: IDataService) => {
-    setDataService([obj, ...dataService]);
+    const startDateTime = new Date();
+    const endDateTime = null;
+
+    setDataService([
+      { ...obj, startDateTime, endDateTime, dataCustomer },
+      ...dataService,
+    ]);
     openMessage('success', 'Serviço cadastrado');
     setOpen(false);
     navigate('/dashboard/services');
