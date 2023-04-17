@@ -45,7 +45,7 @@ const columns: ColumnsType<IDataService> = [
     render: (_, { startDateTime }) => formatDateTime(startDateTime),
   },
   {
-    title: 'Data de Terminio',
+    title: 'Dados de término',
     dataIndex: 'startDateTime',
     key: 'startDateTime',
     render: (_, service) =>
