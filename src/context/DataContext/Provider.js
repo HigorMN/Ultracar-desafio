@@ -21,9 +21,11 @@ function Provider({ children }) {
     () => ({
       dataCustomer,
       setDataCustomer,
-      openMessage
+      openMessage,
+      dataService,
+      setDataService
     }),
-    [dataCustomer, openMessage]
+    [dataCustomer, dataService, openMessage]
   );
 
   return (
