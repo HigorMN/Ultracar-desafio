@@ -1,0 +1,24 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+}
+
+.header__logo {
+  float: left;
+  width: 120px;
+  height: 32px;
+  margin: 16px 24px 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: var(--background);
+}
+
+.header__logo h1 {
+  font-weight: 700;
+  margin: 0;
+}
