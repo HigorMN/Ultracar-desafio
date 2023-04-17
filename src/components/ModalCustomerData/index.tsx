@@ -7,11 +7,11 @@ import IDataContext from '../../Interface/IDataContext';
 import IDataService from '../../Interface/iDataService';
 import dataPart from '../../mock/dataPart';
 import { useNavigate } from 'react-router-dom';
+import getLocal, { setLocal } from '../../utils/localStoragFunc';
 const { confirm } = Modal;
 
 export default function ModalCustomerData(event: IModalOpen) {
-  const { dataCustomer, setDataService, dataService, openMessage } =
-    useContext<IDataContext>(DataContext);
+  const { dataCustomer, openMessage } = useContext<IDataContext>(DataContext);
   const [part, setPart] = useState(null);
   const { open, setOpen } = event;
   const [form] = Form.useForm();
@@ -20,8 +20,9 @@ export default function ModalCustomerData(event: IModalOpen) {
   const onFinish = (obj: IDataService) => {
     const startDateTime = new Date();
     const endDateTime = null;
+    const dataService = getLocal('dataService');
 
-    setDataService([
+    setLocal('dataService', [
       { ...obj, startDateTime, endDateTime, dataCustomer },
       ...dataService,
     ]);
