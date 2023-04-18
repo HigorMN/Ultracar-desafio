@@ -6,7 +6,7 @@ import getLocal from '../../utils/localStoragFunc';
 import DataContext from '../../context/DataContext';
 import IDataContext from '../../Interface/IDataContext';
 import formatDateTime from '../../utils/DateFormat';
-import ButtonFinish from '../ButtonFinishService';
+import ButtonHandleService from '../ButtonHandleService';
 
 const columns: ColumnsType<IDataService> = [
   {
@@ -34,7 +34,12 @@ const columns: ColumnsType<IDataService> = [
     title: 'Data de início',
     dataIndex: 'startDateTime',
     key: 'startDateTime',
-    render: (_, { startDateTime }) => formatDateTime(startDateTime),
+    render: (_, service) =>
+      service.startDateTime ? (
+        formatDateTime(service.startDateTime)
+      ) : (
+        <ButtonHandleService service={service} type="startDateTime" />
+      ),
   },
   {
     title: 'Dados de término',
@@ -44,7 +49,7 @@ const columns: ColumnsType<IDataService> = [
       service.endDateTime ? (
         formatDateTime(service.endDateTime)
       ) : (
-        <ButtonFinish service={service} />
+        <ButtonHandleService service={service} type="endDateTime" />
       ),
   },
   {
@@ -54,7 +59,7 @@ const columns: ColumnsType<IDataService> = [
   },
 ];
 
-export default function TableService() {
+export default function ServiceTable() {
   const { setDataService, dataService, setSaveDataService } =
     useContext<IDataContext>(DataContext);
 
