@@ -9,6 +9,7 @@ import IDataContext from '../../Interface/IDataContext';
 import formatDateTime from '../../utils/dateFormat';
 import ButtonHandleService from '../ButtonHandleService';
 import ModalDetailService from '../ModalDetailService';
+import ButtonRemoveService from '../ButtonRemoveService';
 
 const columns: ColumnsType<IDataService> = [
   {
@@ -61,6 +62,7 @@ const columns: ColumnsType<IDataService> = [
     render: (_, service) => (
       <Space>
         <ModalDetailService service={service} />
+        <ButtonRemoveService service={service} />
       </Space>
     ),
   },

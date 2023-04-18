@@ -6,7 +6,7 @@ import dataPart from '../../mock/dataPart';
 
 export default function ModalDetailService(props: { service: IDataService }) {
   const { service } = props;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>

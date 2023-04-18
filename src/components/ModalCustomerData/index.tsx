@@ -10,10 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import getLocal, { setLocal } from '../../utils/localStoragFunc';
 const { confirm } = Modal;
 
-export default function ModalCustomerData(event: IModalOpen) {
+export default function ModalCustomerData(props: IModalOpen) {
   const { dataCustomer, openMessage } = useContext<IDataContext>(DataContext);
   const [part, setPart] = useState<number[]>([]);
-  const { open, setOpen } = event;
+  const { open, setOpen } = props;
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
