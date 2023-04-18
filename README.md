@@ -1,46 +1,48 @@
-# Getting Started with Create React App
+# Desafio Ultracar - Processo Seletivo Front
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este repositório contém a solução desenvolvida para um desafio proposto pela Ultracar, uma empresa que desenvolve software para oficinas mecânicas. O objetivo do desafio foi montar um fluxo e apresentar a solução desenvolvida usando a construção de telas.
 
-## Available Scripts
+## Fluxo da Aplicação:
 
-In the project directory, you can run:
+1 - Quando o cliente chega na oficina, ele apresenta seu QRCode ou ID para o profissional técnico.
+
+2 - O profissional técnico escaneia o código QRCode do cliente usando um dispositivo móvel, que identifica o cliente no sistema.
+
+3 - As informações do cliente, como nome e veículo, são exibidas em um modal na tela.
+
+4 - O mecânico responsável insere seu nome e seleciona o veículo do cliente na lista de veículos cadastrados. Se o veículo não estiver na lista, há uma opção para informar outro veículo, com um campo de texto para preencher com as informações do veículo. O mecânico seleciona as peças ou componentes que precisam ser consertados ou trocados e adiciona uma descrição do serviço necessário. Em seguida, ele clica em "Cadastrar serviço".
+
+5 - Um modal de confirmação é exibido. O mecânico pode revisar e confirmar as informações ou cancelar o cadastro.
+
+6 - Depois que o serviço é cadastrado, um novo modal é exibido, com as opções de escanear outro QRCode para cadastrar outro serviço ou ir para a lista de serviços.
+
+7 - Na tela de serviços, é exibida uma tabela com as informações de todos os serviços cadastrados, incluindo o nome do mecânico responsável (com opção de pesquisa), nome do cliente, veículo, descrição do serviço, data de início/termino e ações para ver mais detalhes ou excluir o serviço.
+
+8 - O mecânico pode iniciar o serviço clicando em "Iniciar" na tabela de "Data de início", que registra a data e hora atual do início do serviço. Quando o serviço é concluído, o botão "Finalizar" é habilitado, permitindo que o mecânico registre a data e hora de término do serviço.
+
+## Tecnologias utilizadas
+
+A aplicação foi desenvolvida utilizando React com typescript e com a blibioteca Ant Desing e css para a estilização, visando atender ao objetivo proposto pelo desafio.
+
+## Pontos fortes e pontos fracos
+
+- A aplicação apresenta um fluxo intuitivo e de fácil compreensão para o usuário.
+- As informações do cliente e do serviço são exibidas de maneira clara e organizada, permitindo ao mecânico acessá-las rapidamente.
+- A utilização da biblioteca Ant Design proporcionou um layout limpo e moderno para a aplicação.
+- A aplicação foi desenvolvida utilizando uma arquitetura de Micro Serviços, o que garante a segurança dos dados.
+- A utilização do React com TypeScript proporcionou um desenvolvimento mais ágil e confiável.
+
+- Embora a aplicação apresente diversas funcionalidades bem implementadas e uma boa experiência do usuário, ainda há oportunidades de melhoria na usabilidade e legibilidade da aplicação. Infelizmente, devido a limitações de tempo, não foi possível implementar alguns recursos desejados, como a construção de uma base de dados. Esses recursos podem ser explorados em um momento futuro para aumentar a eficiência e funcionalidade da aplicação.
+
+## Como testar a aplicação
+
+Para testar a aplicação, basta clonar este repositório e seguir as instruções para instalar as dependências e iniciar a aplicação. A aplicação pode ser executada em um servidor local ou acessar pelo link https://ultracar-challenger.vercel.app/.
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Executa o aplicativo no modo de desenvolvimento.
+Abra [http://localhost:3000](http://localhost:3000) para visualizá-lo no navegador.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Próximos passos
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Os próximos passos para o desenvolvimento da aplicação incluem a construção de uma base de dados e a implementação de recursos para melhorar a usabilidade e legibilidade. Além disso, outras tecnologias podem ser adicionadas à aplicação para aumentar a eficiência e funcionalidade.
