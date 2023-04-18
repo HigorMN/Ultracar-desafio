@@ -11,9 +11,9 @@ import QRcode from '../../images/Github.svg';
 export default function ScanQRcode() {
   const { setDataCustomer, openMessage } =
     useContext<IDataContext>(DataContext);
-  const [openModalCustomer, setModalCustomer] = useState(false);
+  const [openModalCustomer, setModalCustomer] = useState<boolean>(false);
 
-  const handleQRCodeClick = () => {
+  const handleQRCodeClick = (): void => {
     setDataCustomer(dataCustomer[0]);
     openMessage('success', 'Cliente encontrado');
     setModalCustomer(true);

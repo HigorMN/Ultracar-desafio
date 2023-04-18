@@ -1,9 +1,9 @@
 export const getLocal = (key: string) => {
   const local = localStorage.getItem(key);
-  return JSON.parse(local || '');
+  return local;
 };
 
-export const setLocal = (key: string, content: string | object) => {
+export const setLocal = (key: string, content: string | object): void => {
   if (!getLocal(key) || getLocal(key) === null) {
     localStorage.setItem(
       key,

@@ -3,5 +3,5 @@ export default interface IDataCustomer {
   name: string;
   image: string;
   phone: string;
-  vehicle?: string[];
+  vehicle?: { id: number; name: string }[];
 }

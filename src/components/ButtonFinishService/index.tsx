@@ -10,17 +10,18 @@ const { confirm } = Modal;
 
 export default function ButtonFinishService(props: { service: IDataService }) {
   const { service } = props;
-  const { saveDataService, setSaveDataService } =
+  const { dataService, setDataService, openMessage } =
     useContext<IDataContext>(DataContext);
 
   const handleClick = () => {
     const data = service;
-    const index = saveDataService.findIndex((item) => item.key === data.key);
+    const index = dataService.findIndex((item) => item.key === data.key);
 
     if (index !== -1) {
-      saveDataService[index].endDateTime = new Date();
-      setSaveDataService([...saveDataService]);
-      setLocal('dataService', [...saveDataService]);
+      dataService[index].endDateTime = new Date();
+      setDataService([...dataService]);
+      setLocal('dataService', [...dataService]);
+      openMessage('success', 'Serviço finalizado');
     }
   };
 

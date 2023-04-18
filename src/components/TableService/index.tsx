@@ -5,7 +5,6 @@ import IDataService from '../../Interface/IDataService';
 import getLocal from '../../utils/localStoragFunc';
 import DataContext from '../../context/DataContext';
 import IDataContext from '../../Interface/IDataContext';
-import dataPart from '../../mock/dataPart';
 import formatDateTime from '../../utils/DateFormat';
 import ButtonFinish from '../ButtonFinishService';
 
@@ -32,13 +31,6 @@ const columns: ColumnsType<IDataService> = [
     key: 'description',
   },
   {
-    title: 'Peça',
-    dataIndex: 'part',
-    key: 'part',
-    render: (_, { part }) =>
-      part && dataPart.find(({ id }) => +id === +part)?.name,
-  },
-  {
     title: 'Data de início',
     dataIndex: 'startDateTime',
     key: 'startDateTime',
@@ -55,22 +47,22 @@ const columns: ColumnsType<IDataService> = [
         <ButtonFinish service={service} />
       ),
   },
+  {
+    title: 'Ação',
+    dataIndex: 'action',
+    key: 'action',
+  },
 ];
 
 export default function TableService() {
-  const { setSaveDataService, saveDataService } =
+  const { setDataService, dataService, setSaveDataService } =
     useContext<IDataContext>(DataContext);
 
   useEffect(() => {
-    const dataService = getLocal('dataService');
+    const dataService = JSON.parse(getLocal('dataService') || '[]');
+    setDataService(dataService);
     setSaveDataService(dataService);
-  }, [setSaveDataService]);
+  }, [setDataService, setSaveDataService]);
 
-  saveDataService.forEach((column, index) => {
-    if (!column.key) {
-      column.key = index;
-    }
-  });
-
-  return <Table columns={columns} dataSource={saveDataService} />;
+  return <Table columns={columns} dataSource={dataService} />;
 }

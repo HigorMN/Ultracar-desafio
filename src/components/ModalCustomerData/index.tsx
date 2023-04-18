@@ -12,15 +12,17 @@ const { confirm } = Modal;
 
 export default function ModalCustomerData(event: IModalOpen) {
   const { dataCustomer, openMessage } = useContext<IDataContext>(DataContext);
-  const [part, setPart] = useState(null);
+  const [part, setPart] = useState<null | number[]>(null);
   const { open, setOpen } = event;
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  const onFinish = (obj: IDataService) => {
-    const startDateTime = new Date();
-    const endDateTime = null;
-    const dataService: IDataService[] = getLocal('dataService');
+  const onFinish = (obj: IDataService): void => {
+    const startDateTime: Date = new Date();
+    const endDateTime: null | Date = null;
+    const dataService: IDataService[] = JSON.parse(
+      getLocal('dataService') || '[]'
+    );
 
     setLocal('dataService', [
       {
@@ -37,7 +39,7 @@ export default function ModalCustomerData(event: IModalOpen) {
     navigate('/dashboard/services');
   };
 
-  const showConfirm = () => {
+  const showConfirm = (): void => {
     confirm({
       title: 'Deseja iniciar o serviço?',
       icon: <ExclamationCircleFilled />,
@@ -48,7 +50,7 @@ export default function ModalCustomerData(event: IModalOpen) {
     });
   };
 
-  const handleCancel = () => {
+  const handleCancel = (): void => {
     form.resetFields();
     setOpen(false);
   };
@@ -59,7 +61,7 @@ export default function ModalCustomerData(event: IModalOpen) {
       open={open}
       onCancel={handleCancel}
       onOk={showConfirm}
-      okText="Iniciar serviço"
+      okText="Cadastrar serviço"
     >
       <Space direction="vertical" align="center" className="center">
         <Image
@@ -87,19 +89,22 @@ export default function ModalCustomerData(event: IModalOpen) {
               rules={[{ required: true }]}
               name="vehicle"
               label="Veículo"
+              initialValue={
+                dataCustomer.vehicle?.length && dataCustomer.vehicle[0].name
+              }
             >
-              <Input
-                placeholder={`Ex.: ${
-                  !dataCustomer.vehicle
-                    ? 'Citroen C3 2008'
-                    : dataCustomer.vehicle[0]
-                }`}
+              <Select
+                options={dataCustomer.vehicle?.map(({ name }) => ({
+                  value: name,
+                  label: name,
+                }))}
               />
             </Form.Item>
           </Col>
           <Col span={12}>
             <Form.Item name="part" label="Peça">
               <Select
+                mode="multiple"
                 value={part}
                 onChange={(value) => setPart(value)}
                 options={dataPart.map(({ id, name }) => ({
@@ -111,7 +116,14 @@ export default function ModalCustomerData(event: IModalOpen) {
             </Form.Item>
             {part && (
               <h4>
-                Valor da peça: {dataPart.find(({ id }) => id === part)?.price}
+                {`Valor da peça(s): ${dataPart
+                  .filter((e) => part.includes(e.id))
+                  .reduce((acc, curr) => (acc += +curr.price), 0)
+                  .toLocaleString('pt-br', {
+                    style: 'currency',
+                    currency: 'BRL',
+                    minimumFractionDigits: 2,
+                  })}`}
               </h4>
             )}
           </Col>

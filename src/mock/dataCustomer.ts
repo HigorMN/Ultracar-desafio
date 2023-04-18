@@ -6,7 +6,10 @@ const dataCustomer: IDataCustomer[] = [
     name: 'Higor Maranhão Nunes',
     image: 'https://github.com/HigorMN.png',
     phone: '83996445068',
-    vehicle: ['Fiat Touro 2022', 'Citroen C3 2008'],
+    vehicle: [
+      { id: 1, name: 'Fiat Touro 2022' },
+      { id: 2, name: 'Citroen C3 2008' },
+    ],
   },
 ];
 

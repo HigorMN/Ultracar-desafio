@@ -6,13 +6,14 @@ import DataContext from '.';
 function Provider({ children }) {
   const [dataCustomer, setDataCustomer] = useState({});
   const [messageApi, contextHolder] = message.useMessage();
+  const [dataService, setDataService] = useState([]);
   const [saveDataService, setSaveDataService] = useState([]);
 
   useEffect(() => {
-    const dataService = getLocal('dataService');
+    const dataServiceLocal = getLocal('dataService');
 
-    if(!dataService) {
-      setLocal('dataService', [])
+    if(!dataServiceLocal || dataServiceLocal === null) {
+      return setLocal('dataService', [])
     }
   }, [])
 
@@ -31,10 +32,12 @@ function Provider({ children }) {
       dataCustomer,
       setDataCustomer,
       openMessage,
+      dataService,
+      setDataService,
       saveDataService,
-      setSaveDataService,
+      setSaveDataService
     }),
-    [dataCustomer, openMessage, saveDataService]
+    [dataCustomer, openMessage, dataService, saveDataService]
   );
 
   return (
