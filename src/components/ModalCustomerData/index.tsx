@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Col, Form, Image, Input, Modal, Row, Select, Space } from 'antd';
-import { ExclamationCircleFilled } from '@ant-design/icons';
+import { ExclamationCircleFilled, LoadingOutlined } from '@ant-design/icons';
 import { IModalOpen } from '../../Interface/IModalOpen';
 import DataContext from '../../context/DataContext';
 import IDataContext from '../../Interface/IDataContext';
@@ -11,11 +11,49 @@ import getLocal, { setLocal } from '../../utils/localStoragFunc';
 const { confirm } = Modal;
 
 export default function ModalCustomerData(props: IModalOpen) {
+  const { open, setOpen } = props;
   const { dataCustomer, openMessage } = useContext<IDataContext>(DataContext);
   const [part, setPart] = useState<number[]>([]);
-  const { open, setOpen } = props;
+  const [showOtherOption, setShowOtherOption] = useState<boolean>(false);
+
   const [form] = Form.useForm();
   const navigate = useNavigate();
+
+  const handleCancelModal = (): void => {
+    form.resetFields();
+    setOpen(false);
+    setPart([]);
+    setShowOtherOption(false);
+  };
+
+  const handleSelectChange = (value: string) => {
+    if (value === 'other') return setShowOtherOption(true);
+    setShowOtherOption(false);
+  };
+
+  const showConfirm = (): void => {
+    confirm({
+      title: 'Deseja cadastrar o serviço?',
+      icon: <ExclamationCircleFilled />,
+      okButtonProps: { htmlType: 'submit', form: 'formService' },
+      okText: 'Cadastrar',
+    });
+  };
+
+  const showNavigate = () => {
+    confirm({
+      title: 'O que quer fazer agora?',
+      icon: <LoadingOutlined />,
+      cancelText: 'Continuar Cadastrando',
+      onCancel() {
+        handleCancelModal();
+      },
+      okText: 'Cadastrar e Ir para Lista',
+      onOk() {
+        navigate('/dashboard/services');
+      },
+    });
+  };
 
   const handleRegistration = (obj: IDataService): void => {
     const startDateTime: null | Date = null;
@@ -35,21 +73,7 @@ export default function ModalCustomerData(props: IModalOpen) {
       ...dataService,
     ]);
     openMessage('success', 'Serviço cadastrado');
-    navigate('/dashboard/services');
-  };
-
-  const showConfirm = (): void => {
-    confirm({
-      title: 'Deseja cadastrar o serviço?',
-      icon: <ExclamationCircleFilled />,
-      okButtonProps: { htmlType: 'submit', form: 'formService' },
-      okText: 'Cadastrar e Ir para Lista',
-    });
-  };
-
-  const handleCancelModal = (): void => {
-    form.resetFields();
-    setOpen(false);
+    showNavigate();
   };
 
   return (
@@ -96,10 +120,14 @@ export default function ModalCustomerData(props: IModalOpen) {
               }
             >
               <Select
-                options={dataCustomer.vehicle?.map(({ name }) => ({
-                  value: name,
-                  label: name,
-                }))}
+                onChange={(value) => handleSelectChange(value)}
+                options={[
+                  ...(dataCustomer.vehicle?.map(({ id, name }) => ({
+                    value: name,
+                    label: name,
+                  })) || []),
+                  { value: 'other', label: 'Outro' },
+                ]}
               />
             </Form.Item>
           </Col>
@@ -129,6 +157,17 @@ export default function ModalCustomerData(props: IModalOpen) {
               </h4>
             ) : (
               ''
+            )}
+          </Col>
+          <Col>
+            {showOtherOption && (
+              <Form.Item
+                label="Outros"
+                name="otherVehicle"
+                rules={[{ required: true }]}
+              >
+                <Input placeholder="Ex.: Marea" />
+              </Form.Item>
             )}
           </Col>
           <Col span={24}>

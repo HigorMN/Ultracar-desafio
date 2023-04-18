@@ -6,7 +6,8 @@ export default interface IDataService {
   vehicle: string;
   part?: number[];
   description: string;
-  startDateTime: Date;
+  startDateTime: Date | null;
   endDateTime?: Date | null;
   dataCustomer: IDataCustomer;
+  otherVehicle?: string;
 }

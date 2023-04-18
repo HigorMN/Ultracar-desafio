@@ -27,6 +27,8 @@ const columns: ColumnsType<IDataService> = [
     title: 'Veículo',
     dataIndex: 'vehicle',
     key: 'vehicle',
+    render: (_, { vehicle, otherVehicle }) =>
+      vehicle === 'other' ? otherVehicle : vehicle,
   },
   {
     title: 'Descrição',
