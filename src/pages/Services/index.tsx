@@ -1,12 +1,12 @@
 import ServiceFilter from '../../components/ServiceFilters';
-import TableService from '../../components/TableService';
+import ServiceTable from '../../components/ServiceTable';
 
 export default function Services() {
   return (
     <>
       <ServiceFilter />
       <div className="content__body">
-        <TableService />
+        <ServiceTable />
       </div>
     </>
   );
