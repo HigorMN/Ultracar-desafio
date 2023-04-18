@@ -146,7 +146,7 @@ export default function ModalCustomerData(props: IModalOpen) {
             </Form.Item>
             {part?.length ? (
               <h4>
-                {`Valor da peça(s): ${dataPart
+                {`Valor ${part.length > 1 ? 'das peças' : 'da peça'}: ${dataPart
                   .filter((e) => part.includes(e.id))
                   .reduce((acc, curr) => (acc += +curr.price), 0)
                   .toLocaleString('pt-br', {
