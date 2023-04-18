@@ -36,7 +36,7 @@ A aplicação foi desenvolvida utilizando React com typescript e com a blibiotec
 
 ## Como testar a aplicação
 
-Para testar a aplicação, basta clonar este repositório e seguir as instruções para instalar as dependências e iniciar a aplicação. A aplicação pode ser executada em um servidor local ou acessar pelo link https://ultracar-challenger.vercel.app/.
+Para testar a aplicação, basta clonar este repositório e seguir as instruções para instalar as dependências e iniciar a aplicação. A aplicação pode ser executada em um servidor local ou acessar pelo link [https://ultracar-challenger.vercel.app/](https://ultracar-challenger.vercel.app/).
 
 ### `npm start`
 
