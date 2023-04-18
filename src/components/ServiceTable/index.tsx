@@ -1,12 +1,14 @@
 import { useContext, useEffect } from 'react';
 import type { ColumnsType } from 'antd/es/table';
+import { Space } from 'antd';
 import Table from 'antd/es/table';
 import IDataService from '../../Interface/IDataService';
 import getLocal from '../../utils/localStoragFunc';
 import DataContext from '../../context/DataContext';
 import IDataContext from '../../Interface/IDataContext';
-import formatDateTime from '../../utils/DateFormat';
+import formatDateTime from '../../utils/dateFormat';
 import ButtonHandleService from '../ButtonHandleService';
+import ModalDetailService from '../ModalDetailService';
 
 const columns: ColumnsType<IDataService> = [
   {
@@ -56,6 +58,11 @@ const columns: ColumnsType<IDataService> = [
     title: 'Ação',
     dataIndex: 'action',
     key: 'action',
+    render: (_, service) => (
+      <Space>
+        <ModalDetailService service={service} />
+      </Space>
+    ),
   },
 ];
 

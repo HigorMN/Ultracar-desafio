@@ -12,8 +12,6 @@ export default function ServiceFilter() {
   };
 
   const handleSearch = (value: string): void => {
-    console.log(value);
-
     if (!value) return resetData();
     const lowerCased = value.toLowerCase();
 

@@ -12,13 +12,13 @@ const { confirm } = Modal;
 
 export default function ModalCustomerData(event: IModalOpen) {
   const { dataCustomer, openMessage } = useContext<IDataContext>(DataContext);
-  const [part, setPart] = useState<null | number[]>(null);
+  const [part, setPart] = useState<number[]>([]);
   const { open, setOpen } = event;
   const [form] = Form.useForm();
   const navigate = useNavigate();
 
-  const onFinish = (obj: IDataService): void => {
-    const startDateTime: Date = new Date();
+  const handleRegistration = (obj: IDataService): void => {
+    const startDateTime: null | Date = null;
     const endDateTime: null | Date = null;
     const dataService: IDataService[] = JSON.parse(
       getLocal('dataService') || '[]'
@@ -35,22 +35,19 @@ export default function ModalCustomerData(event: IModalOpen) {
       ...dataService,
     ]);
     openMessage('success', 'Serviço cadastrado');
-    setOpen(false);
     navigate('/dashboard/services');
   };
 
   const showConfirm = (): void => {
     confirm({
-      title: 'Deseja iniciar o serviço?',
+      title: 'Deseja cadastrar o serviço?',
       icon: <ExclamationCircleFilled />,
       okButtonProps: { htmlType: 'submit', form: 'formService' },
-      async onOk() {
-        await onFinish;
-      },
+      okText: 'Cadastrar e Ir para Lista',
     });
   };
 
-  const handleCancel = (): void => {
+  const handleCancelModal = (): void => {
     form.resetFields();
     setOpen(false);
   };
@@ -59,7 +56,7 @@ export default function ModalCustomerData(event: IModalOpen) {
     <Modal
       title="Dados do Cliente"
       open={open}
-      onCancel={handleCancel}
+      onCancel={handleCancelModal}
       onOk={showConfirm}
       okText="Cadastrar serviço"
     >
@@ -72,7 +69,12 @@ export default function ModalCustomerData(event: IModalOpen) {
         />
         <h1>{dataCustomer.name}</h1>
       </Space>
-      <Form form={form} layout="vertical" onFinish={onFinish} id="formService">
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={handleRegistration}
+        id="formService"
+      >
         <h2>Serviço:</h2>
         <Row gutter={10}>
           <Col span={24}>
@@ -114,7 +116,7 @@ export default function ModalCustomerData(event: IModalOpen) {
                 allowClear
               />
             </Form.Item>
-            {part && (
+            {part?.length ? (
               <h4>
                 {`Valor da peça(s): ${dataPart
                   .filter((e) => part.includes(e.id))
@@ -125,6 +127,8 @@ export default function ModalCustomerData(event: IModalOpen) {
                     minimumFractionDigits: 2,
                   })}`}
               </h4>
+            ) : (
+              ''
             )}
           </Col>
           <Col span={24}>
